@@ -1,16 +1,17 @@
 package com.adedom.library.domain.usecase
 
-import com.adedom.teg.request.auth.SignInRequest
-import com.adedom.teg.response.SignInResponse
+import com.adedom.library.domain.Constant
+import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.domain.repository.DefaultTegAuthRepository
-import com.adedom.library.domain.Constant
+import com.adedom.teg.request.auth.SignInRequest
+import com.adedom.teg.response.SignInResponse
 
 class SignInUseCaseImpl(
     private val repository: DefaultTegAuthRepository
 ) : SignInUseCase {
 
-    override suspend fun callSignIn(signIn: SignInRequest): SignInResponse {
+    override suspend fun callSignIn(signIn: SignInRequest): Resource<SignInResponse> {
         return repository.callSignIn(signIn)
     }
 

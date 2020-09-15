@@ -3,6 +3,7 @@ package com.adedom.tegauth.presentation.signin
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.domain.usecase.SignInUseCase
 import com.adedom.teg.request.auth.SignInRequest
@@ -146,28 +147,27 @@ class SignInViewModelTest {
             message = "OK",
             accessToken = "asdexcvxcb"
         )
-        coEvery { useCase.callSignIn(request) } returns response
+        val result = Resource.Success(response)
+        coEvery { useCase.callSignIn(request) } returns result
 
         viewModel.callSignIn()
 
         val signInResponse = viewModel.signIn.getOrAwaitValue()
-        assertEquals(response, signInResponse)
+        assertEquals(result.data, signInResponse)
     }
 
     @Test
     fun callSignIn_failed() {
-        val username = "adedom"
-        val password = "1234"
-        viewModel.setUsername(username)
-        viewModel.setPassword(password)
-        val request = SignInRequest(username = username, password = password)
+        viewModel.setUsername("adedom")
+        viewModel.setPassword("1234")
         val throwable = Throwable("Api error")
-        coEvery { useCase.callSignIn(request) } throws throwable
+        val result = Resource.Error(throwable)
+        coEvery { useCase.callSignIn(any()) } throws result.throwable
 
         viewModel.callSignIn()
 
         val error = viewModel.error.getOrAwaitValue()
-        assertEquals(throwable, error)
+        assertEquals(result.throwable, error)
     }
 
 }

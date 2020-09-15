@@ -2,20 +2,13 @@ package com.adedom.tegauth.presentation.signin
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.domain.usecase.SignInUseCase
 import com.adedom.teg.request.auth.SignInRequest
 import com.adedom.teg.response.SignInResponse
 import com.adedom.tegauth.base.BaseViewModel
 import kotlinx.coroutines.launch
-
-data class SignInState(
-    val username: String = "",
-    val password: String = "",
-    val isValidUsername: Boolean = false,
-    val isValidPassword: Boolean = false,
-    val loading: Boolean = false
-)
 
 class SignInViewModel(
     private val useCase: SignInUseCase
@@ -57,19 +50,16 @@ class SignInViewModel(
 
     fun callSignIn() {
         launch {
-            try {
-                setState { copy(loading = true) }
-                val request = SignInRequest(
-                    username = state.value?.username,
-                    password = state.value?.password
-                )
-                val response = useCase.callSignIn(request)
-                _signIn.value = response
-                setState { copy(loading = false) }
-            } catch (e: Throwable) {
-                setState { copy(loading = false) }
-                setError(e)
+            setState { copy(loading = true) }
+            val request = SignInRequest(
+                username = state.value?.username,
+                password = state.value?.password
+            )
+            when (val result = useCase.callSignIn(request)) {
+                is Resource.Success -> _signIn.value = result.data
+                is Resource.Error -> setError(result.throwable)
             }
+            setState { copy(loading = false) }
         }
     }
 

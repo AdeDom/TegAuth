@@ -1,12 +1,13 @@
 package com.adedom.library.domain.usecase
 
+import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.teg.request.auth.SignInRequest
 import com.adedom.teg.response.SignInResponse
 
 interface SignInUseCase {
 
-    suspend fun callSignIn(signIn: SignInRequest): SignInResponse
+    suspend fun callSignIn(signIn: SignInRequest): Resource<SignInResponse>
 
     fun validateSignIn(signIn: SignInRequest): ValidateSignIn
 

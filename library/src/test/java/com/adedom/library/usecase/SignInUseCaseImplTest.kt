@@ -1,5 +1,6 @@
 package com.adedom.library.usecase
 
+import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.domain.repository.DefaultTegAuthRepository
 import com.adedom.library.domain.usecase.SignInUseCase
@@ -33,11 +34,23 @@ class SignInUseCaseImplTest {
             message = "OK",
             accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
         )
-        coEvery { useCase.callSignIn(request) } returns response
+        val result = Resource.Success(response)
+        coEvery { repository.callSignIn(request) } returns result
 
-        val signInResponse = repository.callSignIn(request)
+        val signInResponse = useCase.callSignIn(request)
 
-        assertEquals(response, signInResponse)
+        assertEquals(result, signInResponse)
+    }
+
+    @Test
+    fun callSignIn_error() = runBlockingTest {
+        val throwable = Throwable("Api error")
+        val result = Resource.Error(throwable)
+        coEvery { repository.callSignIn(any()) } returns result
+
+        val response = useCase.callSignIn(SignInRequest())
+
+        assertEquals(result, response)
     }
 
     @Test
@@ -104,7 +117,7 @@ class SignInUseCaseImplTest {
     }
 
     @Test
-    fun validateUsername_success(){
+    fun validateUsername_success() {
         val username = "adedom"
 
         val isValidate = useCase.validateUsername(username)
@@ -113,7 +126,7 @@ class SignInUseCaseImplTest {
     }
 
     @Test
-    fun validateUsername_failed(){
+    fun validateUsername_failed() {
         val username = "ade"
 
         val isValidate = useCase.validateUsername(username)
@@ -122,7 +135,7 @@ class SignInUseCaseImplTest {
     }
 
     @Test
-    fun validateUsername_empty(){
+    fun validateUsername_empty() {
         val username = ""
 
         val isValidate = useCase.validateUsername(username)
@@ -131,7 +144,7 @@ class SignInUseCaseImplTest {
     }
 
     @Test
-    fun validatePassword_success(){
+    fun validatePassword_success() {
         val password = "1234"
 
         val isValidate = useCase.validatePassword(password)
@@ -140,7 +153,7 @@ class SignInUseCaseImplTest {
     }
 
     @Test
-    fun validatePassword_failed(){
+    fun validatePassword_failed() {
         val password = "12"
 
         val isValidate = useCase.validatePassword(password)
@@ -149,7 +162,7 @@ class SignInUseCaseImplTest {
     }
 
     @Test
-    fun validatePassword_empty(){
+    fun validatePassword_empty() {
         val password = ""
 
         val isValidate = useCase.validatePassword(password)
