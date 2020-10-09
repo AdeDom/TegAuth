@@ -5,8 +5,8 @@ import com.adedom.teg.models.response.SignInResponse
 
 class TegDataSource(private val provider: DataSourceProvider) {
 
-    suspend fun callSignIn(
-        signIn: SignInRequest
-    ): SignInResponse = provider.getDataSource().callSignIn(signIn)
+    suspend fun callSignIn(signIn: SignInRequest): SignInResponse {
+        return provider.getDataSource().callSignIn(signIn)
+    }
 
 }

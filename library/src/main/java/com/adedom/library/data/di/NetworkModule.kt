@@ -6,7 +6,7 @@ import com.adedom.library.data.repository.DefaultTegAuthRepositoryImpl
 import com.adedom.library.domain.repository.DefaultTegAuthRepository
 import org.koin.dsl.module
 
-val dataModule = module {
+private val dataModule = module {
 
     single { DataSourceProvider(get()) }
 
@@ -15,3 +15,5 @@ val dataModule = module {
     single<DefaultTegAuthRepository> { DefaultTegAuthRepositoryImpl(get()) }
 
 }
+
+val getDataModule = dataModule

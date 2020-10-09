@@ -1,4 +1,4 @@
-package com.adedom.library.domain.usecase
+package com.adedom.library.presentation.usercase
 
 import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.core.widget.addTextChangedListener
 import com.adedom.library.domain.model.ValidateSignIn
+import com.adedom.library.presentation.signin.SignInViewModel
 import com.adedom.tegauth.R
 import com.adedom.tegauth.base.BaseActivity
 import com.adedom.tegauth.util.extension.snackbar

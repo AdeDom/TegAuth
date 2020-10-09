@@ -1,4 +1,4 @@
-package com.adedom.tegauth.util
+package com.adedom.library.util
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData

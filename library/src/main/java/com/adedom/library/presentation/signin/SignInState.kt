@@ -1,4 +1,4 @@
-package com.adedom.tegauth.presentation.signin
+package com.adedom.library.presentation.signin
 
 data class SignInState(
     val username: String = "",

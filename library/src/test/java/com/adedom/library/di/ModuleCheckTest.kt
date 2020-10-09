@@ -1,10 +1,10 @@
-package com.adedom.tegauth.di
+package com.adedom.library.di
 
 import android.content.Context
-import com.adedom.library.data.di.dataModule
-import com.adedom.library.domain.di.domainModule
-import com.adedom.library.sharedpreference.di.sharedPreferenceModule
-import com.adedom.tegauth.presentation.di.presentationModule
+import com.adedom.library.data.di.getDataModule
+import com.adedom.library.domain.di.getDomainModule
+import com.adedom.library.presentation.di.getPresentationModule
+import com.adedom.library.sharedpreference.di.getSharedPreferenceModule
 import io.mockk.mockk
 import org.junit.Test
 import org.junit.experimental.categories.Category
@@ -27,10 +27,10 @@ class ModuleCheckTest : AutoCloseKoinTest() {
             checkModules {
                 modules(
                     contextModule,
-                    presentationModule,
-                    domainModule,
-                    dataModule,
-                    sharedPreferenceModule
+                    getPresentationModule,
+                    getDomainModule,
+                    getDataModule,
+                    getSharedPreferenceModule
                 )
             }
         } catch (e: InstanceCreationException) {

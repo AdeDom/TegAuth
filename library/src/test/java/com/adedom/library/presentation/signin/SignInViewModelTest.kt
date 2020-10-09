@@ -1,14 +1,14 @@
-package com.adedom.tegauth.presentation.signin
+package com.adedom.library.presentation.signin
 
 import android.os.Build
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
-import com.adedom.library.domain.usecase.SignInUseCase
+import com.adedom.library.presentation.usercase.SignInUseCase
+import com.adedom.library.util.getOrAwaitValue
 import com.adedom.teg.models.request.SignInRequest
 import com.adedom.teg.models.response.SignInResponse
-import com.adedom.tegauth.util.getOrAwaitValue
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk

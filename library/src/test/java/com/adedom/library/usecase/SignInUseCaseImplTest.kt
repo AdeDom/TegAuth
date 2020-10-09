@@ -3,7 +3,7 @@ package com.adedom.library.usecase
 import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.domain.repository.DefaultTegAuthRepository
-import com.adedom.library.domain.usecase.SignInUseCase
+import com.adedom.library.presentation.usercase.SignInUseCase
 import com.adedom.library.domain.usecase.SignInUseCaseImpl
 import com.adedom.teg.models.request.SignInRequest
 import com.adedom.teg.models.response.SignInResponse

@@ -1,4 +1,4 @@
-package com.adedom.tegauth.base
+package com.adedom.library.base
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -4,8 +4,10 @@ import com.adedom.library.sharedpreference.service.SessionManagerService
 import com.adedom.library.sharedpreference.service.SessionManagerServiceImpl
 import org.koin.dsl.module
 
-val sharedPreferenceModule = module {
+private val sharedPreferenceModule = module {
 
     single<SessionManagerService> { SessionManagerServiceImpl(get()) }
 
 }
+
+val getSharedPreferenceModule = sharedPreferenceModule
