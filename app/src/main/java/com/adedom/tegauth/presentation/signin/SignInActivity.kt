@@ -9,6 +9,7 @@ import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.presentation.signin.SignInViewModel
 import com.adedom.tegauth.R
 import com.adedom.tegauth.base.BaseActivity
+import com.adedom.tegauth.presentation.signup.SignUpActivity
 import com.adedom.tegauth.presentation.splashscreen.SplashScreenActivity
 import com.adedom.tegauth.util.extension.snackbar
 import kotlinx.android.synthetic.main.activity_sign_in.*
@@ -56,6 +57,12 @@ class SignInActivity : BaseActivity() {
         etPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) viewModel.onSignIn()
             false
+        }
+
+        btSignUp.setOnClickListener {
+            Intent(baseContext, SignUpActivity::class.java).apply {
+                startActivity(this)
+            }
         }
     }
 

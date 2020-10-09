@@ -1,14 +1,54 @@
 package com.adedom.tegauth.presentation.signup
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import androidx.core.widget.addTextChangedListener
+import com.adedom.library.presentation.signup.SignUpViewModel
 import com.adedom.tegauth.R
+import com.adedom.tegauth.base.BaseActivity
+import com.adedom.tegauth.presentation.main.MainActivity
+import com.adedom.tegauth.util.extension.toast
+import kotlinx.android.synthetic.main.activity_sign_up.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
+
+    val viewModel by viewModel<SignUpViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        viewModel.state.observe { state ->
+            progressBar.visibility = if (state.loading) View.VISIBLE else View.INVISIBLE
+        }
+
+        viewModel.signUpEvent.observe { response ->
+            toast(response.message)
+            if (response.success) {
+                Intent(baseContext, MainActivity::class.java).apply {
+                    finishAffinity()
+                    startActivity(this)
+                }
+            }
+        }
+
+        etUsername.addTextChangedListener { viewModel.setStateUsername(it.toString()) }
+        etPassword.addTextChangedListener { viewModel.setStatePassword(it.toString()) }
+        etName.addTextChangedListener { viewModel.setStateName(it.toString()) }
+        etGender.addTextChangedListener { viewModel.setStateGender(it.toString()) }
+        etBirthDate.addTextChangedListener { viewModel.setStateBirthDate(it.toString()) }
+
+        // event
+        btSignUp.setOnClickListener {
+            viewModel.callSignUp()
+        }
+
+        btBack.setOnClickListener {
+            finish()
+        }
+
     }
 
 }
