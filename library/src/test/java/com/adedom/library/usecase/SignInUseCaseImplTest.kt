@@ -2,7 +2,7 @@ package com.adedom.library.usecase
 
 import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
-import com.adedom.library.domain.repository.DefaultTegAuthRepository
+import com.adedom.library.domain.repository.DefaultTegRepository
 import com.adedom.library.domain.usecase.SignInUseCaseImpl
 import com.adedom.library.presentation.usercase.SignInUseCase
 import com.adedom.library.sharedpreference.service.SessionManagerService
@@ -19,7 +19,7 @@ import org.junit.Test
 @ExperimentalCoroutinesApi
 class SignInUseCaseImplTest {
 
-    private var repository = mockk<DefaultTegAuthRepository>(relaxed = true)
+    private var repository = mockk<DefaultTegRepository>(relaxed = true)
     private val sharedPreference = mockk<SessionManagerService>(relaxed = true)
     private lateinit var useCase: SignInUseCase
 

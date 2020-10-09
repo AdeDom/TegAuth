@@ -1,9 +1,8 @@
 package com.adedom.tegauth.base
 
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
-import com.adedom.tegauth.util.extension.snackbar
+import com.adedom.tegauth.util.extension.toast
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -11,10 +10,10 @@ abstract class BaseActivity : AppCompatActivity() {
         observe(this@BaseActivity, { onNext(it) })
     }
 
-    protected fun LiveData<Throwable>.observeError(view: View) {
+    protected fun LiveData<Throwable>.observeError() {
         observe(this@BaseActivity, {
             it.printStackTrace()
-            view.snackbar("Error: ${it.message}")
+            toast(it.message)
         })
     }
 

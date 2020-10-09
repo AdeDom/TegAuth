@@ -34,6 +34,8 @@ class SignUpActivity : BaseActivity() {
             }
         }
 
+        viewModel.error.observeError()
+
         etUsername.addTextChangedListener { viewModel.setStateUsername(it.toString()) }
         etPassword.addTextChangedListener { viewModel.setStatePassword(it.toString()) }
         etName.addTextChangedListener { viewModel.setStateName(it.toString()) }

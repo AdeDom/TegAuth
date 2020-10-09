@@ -31,6 +31,8 @@ class SplashScreenActivity : BaseActivity() {
             }
         }
 
+        viewModel.error.observeError()
+
     }
 
 }

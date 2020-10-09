@@ -28,6 +28,7 @@ class SignInActivity : BaseActivity() {
             btSignIn.isEnabled = state.isValidUsername && state.isValidPassword
             progressBar.visibility = if (state.loading) View.VISIBLE else View.INVISIBLE
         }
+
         viewModel.signInEvent.observe {
             when (it) {
                 ValidateSignIn.VALIDATE_ERROR -> layoutRoot.snackbar(it.toString())
@@ -38,6 +39,7 @@ class SignInActivity : BaseActivity() {
                 else -> viewModel.callSignIn()
             }
         }
+
         viewModel.signIn.observe { response ->
             if (response.success) {
                 Intent(baseContext, SplashScreenActivity::class.java).apply {
@@ -46,7 +48,8 @@ class SignInActivity : BaseActivity() {
                 }
             }
         }
-        viewModel.error.observeError(layoutRoot)
+
+        viewModel.error.observeError()
 
         // set state
         etUsername.addTextChangedListener { viewModel.setUsername(it.toString()) }

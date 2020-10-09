@@ -2,14 +2,14 @@ package com.adedom.library.data.repository
 
 import com.adedom.library.data.network.source.TegDataSource
 import com.adedom.library.domain.Resource
-import com.adedom.library.domain.repository.DefaultTegAuthRepository
+import com.adedom.library.domain.repository.DefaultTegRepository
 import com.adedom.teg.models.request.*
 import com.adedom.teg.models.response.*
 import okhttp3.MultipartBody
 
 class DefaultTegAuthRepositoryImpl(
     private val dataSource: TegDataSource
-) : BaseRepository(), DefaultTegAuthRepository {
+) : BaseRepository(), DefaultTegRepository {
 
     override suspend fun callSignIn(signIn: SignInRequest): Resource<SignInResponse> {
         return safeApiCall { dataSource.callSignIn(signIn) }

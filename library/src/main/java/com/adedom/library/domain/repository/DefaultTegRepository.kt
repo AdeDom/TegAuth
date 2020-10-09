@@ -5,7 +5,7 @@ import com.adedom.teg.models.request.*
 import com.adedom.teg.models.response.*
 import okhttp3.MultipartBody
 
-interface DefaultTegAuthRepository {
+interface DefaultTegRepository {
 
     suspend fun callSignIn(signIn: SignInRequest): Resource<SignInResponse>
 

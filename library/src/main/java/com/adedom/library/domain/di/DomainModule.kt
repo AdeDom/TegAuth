@@ -15,7 +15,7 @@ private val domainModule = module {
     single<SignInUseCase> { SignInUseCaseImpl(get(), get()) }
     single<SignUpUseCase> { SignUpUseCaseImpl(get(), get()) }
     single<SplashScreenUseCase> { SplashScreenUseCaseImpl(get()) }
-    single<MainUseCase> { MainUseCaseImpl(get()) }
+    single<MainUseCase> { MainUseCaseImpl(get(), get()) }
 
 }
 
