@@ -5,15 +5,29 @@ import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.domain.repository.DefaultTegAuthRepository
 import com.adedom.library.presentation.usercase.SignInUseCase
+import com.adedom.library.sharedpreference.service.SessionManagerService
 import com.adedom.teg.models.request.SignInRequest
 import com.adedom.teg.models.response.SignInResponse
 
 class SignInUseCaseImpl(
-    private val repository: DefaultTegAuthRepository
+    private val repository: DefaultTegAuthRepository,
+    private val sessionManagerService: SessionManagerService,
 ) : SignInUseCase {
 
     override suspend fun callSignIn(signIn: SignInRequest): Resource<SignInResponse> {
-        return repository.callSignIn(signIn)
+        val resource = repository.callSignIn(signIn)
+
+        when (resource) {
+            is Resource.Success -> {
+                val response = resource.data
+                if (response.success) {
+                    sessionManagerService.accessToken = response.accessToken.orEmpty()
+                    sessionManagerService.refreshToken = response.refreshToken.orEmpty()
+                }
+            }
+        }
+
+        return resource
     }
 
     override fun validateSignIn(signIn: SignInRequest): ValidateSignIn {

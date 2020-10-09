@@ -1,5 +1,6 @@
 package com.adedom.tegauth.presentation.signin
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -8,6 +9,7 @@ import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.presentation.signin.SignInViewModel
 import com.adedom.tegauth.R
 import com.adedom.tegauth.base.BaseActivity
+import com.adedom.tegauth.presentation.splashscreen.SplashScreenActivity
 import com.adedom.tegauth.util.extension.snackbar
 import kotlinx.android.synthetic.main.activity_sign_in.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,8 +38,12 @@ class SignInActivity : BaseActivity() {
             }
         }
         viewModel.signIn.observe { response ->
-            val value = if (response.success) response.accessToken else response.message
-            layoutRoot.snackbar(value)
+            if (response.success) {
+                Intent(baseContext, SplashScreenActivity::class.java).apply {
+                    finish()
+                    startActivity(this)
+                }
+            }
         }
         viewModel.error.observeError(layoutRoot)
 

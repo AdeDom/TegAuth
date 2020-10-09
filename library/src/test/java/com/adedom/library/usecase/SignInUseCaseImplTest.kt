@@ -3,8 +3,9 @@ package com.adedom.library.usecase
 import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.domain.repository.DefaultTegAuthRepository
-import com.adedom.library.presentation.usercase.SignInUseCase
 import com.adedom.library.domain.usecase.SignInUseCaseImpl
+import com.adedom.library.presentation.usercase.SignInUseCase
+import com.adedom.library.sharedpreference.service.SessionManagerService
 import com.adedom.teg.models.request.SignInRequest
 import com.adedom.teg.models.response.SignInResponse
 import io.mockk.coEvery
@@ -19,11 +20,12 @@ import org.junit.Test
 class SignInUseCaseImplTest {
 
     private var repository = mockk<DefaultTegAuthRepository>(relaxed = true)
+    private val sharedPreference = mockk<SessionManagerService>(relaxed = true)
     private lateinit var useCase: SignInUseCase
 
     @Before
     fun setup() {
-        useCase = SignInUseCaseImpl(repository)
+        useCase = SignInUseCaseImpl(repository, sharedPreference)
     }
 
     @Test

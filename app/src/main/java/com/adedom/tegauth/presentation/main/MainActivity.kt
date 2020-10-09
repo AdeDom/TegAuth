@@ -1,14 +1,29 @@
 package com.adedom.tegauth.presentation.main
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import com.adedom.library.presentation.main.MainViewModel
 import com.adedom.tegauth.R
+import com.adedom.tegauth.base.BaseActivity
+import com.adedom.tegauth.presentation.splashscreen.SplashScreenActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
+    val viewModel by viewModel<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        btSignOut.setOnClickListener {
+            viewModel.signOut()
+            Intent(baseContext, SplashScreenActivity::class.java).apply {
+                finishAffinity()
+                startActivity(this)
+            }
+        }
     }
 
 }
