@@ -6,8 +6,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adedom.library.domain.Resource
 import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.domain.usecase.SignInUseCase
-import com.adedom.teg.request.auth.SignInRequest
-import com.adedom.teg.response.SignInResponse
+import com.adedom.teg.models.request.SignInRequest
+import com.adedom.teg.models.response.SignInResponse
 import com.adedom.tegauth.util.getOrAwaitValue
 import io.mockk.coEvery
 import io.mockk.every

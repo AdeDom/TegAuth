@@ -5,8 +5,8 @@ import com.adedom.library.domain.model.ValidateSignIn
 import com.adedom.library.domain.repository.DefaultTegAuthRepository
 import com.adedom.library.domain.usecase.SignInUseCase
 import com.adedom.library.domain.usecase.SignInUseCaseImpl
-import com.adedom.teg.request.auth.SignInRequest
-import com.adedom.teg.response.SignInResponse
+import com.adedom.teg.models.request.SignInRequest
+import com.adedom.teg.models.response.SignInResponse
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
