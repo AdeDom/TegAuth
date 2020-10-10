@@ -49,7 +49,7 @@ class SignUpViewModel(
             )
             when (val resource = useCase.callSignUp(request)) {
                 is Resource.Success -> _signUpEvent.value = resource.data
-                is Resource.Error -> setError(resource.throwable)
+                is Resource.Error -> setError(resource)
             }
             setState { copy(loading = false) }
         }

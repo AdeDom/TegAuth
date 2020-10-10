@@ -14,7 +14,7 @@ class MainViewModel(
             setState { copy(loading = true) }
             when (val resource = useCase.fetchPlayerInfo()) {
                 is Resource.Success -> setState { copy(playerInfo = resource.data.playerInfo) }
-                is Resource.Error -> setError(resource.throwable)
+                is Resource.Error -> setError(resource)
             }
             setState { copy(loading = false) }
         }

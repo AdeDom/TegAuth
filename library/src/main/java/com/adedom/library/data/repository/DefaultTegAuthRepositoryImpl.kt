@@ -1,5 +1,6 @@
 package com.adedom.library.data.repository
 
+import com.adedom.library.base.BaseRepository
 import com.adedom.library.data.network.source.TegDataSource
 import com.adedom.library.domain.Resource
 import com.adedom.library.domain.repository.DefaultTegRepository

@@ -1,7 +1,10 @@
 package com.adedom.tegauth.base
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import com.adedom.library.domain.Resource
+import com.adedom.tegauth.presentation.splashscreen.SplashScreenActivity
 import com.adedom.tegauth.util.extension.toast
 
 abstract class BaseActivity : AppCompatActivity() {
@@ -10,10 +13,17 @@ abstract class BaseActivity : AppCompatActivity() {
         observe(this@BaseActivity, { onNext(it) })
     }
 
-    protected fun LiveData<Throwable>.observeError() {
+    protected fun LiveData<Resource.Error>.observeError() {
         observe(this@BaseActivity, {
-            it.printStackTrace()
-            toast(it.message)
+            if (it.tokenExpire) {
+                Intent(baseContext, SplashScreenActivity::class.java).apply {
+                    finishAffinity()
+                    startActivity(this)
+                }
+            } else {
+                it.throwable.printStackTrace()
+                toast(it.throwable.message)
+            }
         })
     }
 

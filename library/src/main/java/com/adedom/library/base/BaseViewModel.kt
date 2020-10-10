@@ -3,6 +3,7 @@ package com.adedom.library.base
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.adedom.library.domain.Resource
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -10,14 +11,14 @@ abstract class BaseViewModel<S : Any>(private val initialState: S) : ViewModel()
 
     private val job = SupervisorJob()
     private val exceptionHandler = CoroutineExceptionHandler { _, err ->
-        setError(err)
+        setError(Resource.Error(err, false))
     }
     private val _state = MutableLiveData<S>().apply { value = initialState }
-    private val _error = MutableLiveData<Throwable>()
+    private val _error = MutableLiveData<Resource.Error>()
     private val _attachFirstTime = MutableLiveData<Unit>().apply { value = Unit }
 
     val state: LiveData<S> = _state
-    val error: LiveData<Throwable> = _error
+    val error: LiveData<Resource.Error> = _error
     val attachFirstTime: LiveData<Unit> = _attachFirstTime
 
     override val coroutineContext: CoroutineContext
@@ -32,8 +33,8 @@ abstract class BaseViewModel<S : Any>(private val initialState: S) : ViewModel()
         _state.value = (_state.value ?: initialState).reducer()
     }
 
-    protected fun setError(throwable: Throwable) {
-        _error.value = throwable
+    protected fun setError(error: Resource.Error) {
+        _error.value = error
     }
 
 }

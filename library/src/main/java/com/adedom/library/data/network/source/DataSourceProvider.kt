@@ -10,6 +10,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -72,11 +73,16 @@ class DataSourceProvider(private val sessionManagerService: SessionManagerServic
     }
 
     private fun callRefreshToken() {
-        val request = RefreshTokenRequest(sessionManagerService.refreshToken)
-        val response = runBlocking { getDataSource().callRefreshToken(request) }
-        if (response.success) {
-            sessionManagerService.accessToken = response.accessToken.orEmpty()
-            sessionManagerService.refreshToken = response.refreshToken.orEmpty()
+        try {
+            val request = RefreshTokenRequest(sessionManagerService.refreshToken)
+            val response = runBlocking { getDataSource().callRefreshToken(request) }
+            if (response.success) {
+                sessionManagerService.accessToken = response.accessToken.orEmpty()
+                sessionManagerService.refreshToken = response.refreshToken.orEmpty()
+            }
+        } catch (e: HttpException) {
+            sessionManagerService.accessToken = ""
+            sessionManagerService.refreshToken = ""
         }
     }
 

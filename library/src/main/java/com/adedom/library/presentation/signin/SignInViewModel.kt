@@ -55,9 +55,9 @@ class SignInViewModel(
                 username = state.value?.username,
                 password = state.value?.password
             )
-            when (val result = useCase.callSignIn(request)) {
-                is Resource.Success -> _signIn.value = result.data
-                is Resource.Error -> setError(result.throwable)
+            when (val resource = useCase.callSignIn(request)) {
+                is Resource.Success -> _signIn.value = resource.data
+                is Resource.Error -> setError(resource)
             }
             setState { copy(loading = false) }
         }
