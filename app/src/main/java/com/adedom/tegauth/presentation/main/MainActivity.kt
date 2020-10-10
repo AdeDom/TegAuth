@@ -8,6 +8,7 @@ import com.adedom.teg.util.TegConstant
 import com.adedom.tegauth.R
 import com.adedom.tegauth.base.BaseActivity
 import com.adedom.tegauth.presentation.changepassword.ChangePasswordActivity
+import com.adedom.tegauth.presentation.changeprofile.ChangeProfileActivity
 import com.adedom.tegauth.presentation.splashscreen.SplashScreenActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,6 +45,12 @@ class MainActivity : BaseActivity() {
 
         btChangePassword.setOnClickListener {
             Intent(baseContext, ChangePasswordActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
+
+        btChangeProfile.setOnClickListener {
+            Intent(baseContext, ChangeProfileActivity::class.java).apply {
                 startActivity(this)
             }
         }
