@@ -5,6 +5,7 @@ import com.adedom.library.data.network.api.TegApi
 import com.adedom.library.sharedpreference.service.SessionManagerService
 import com.adedom.teg.models.request.RefreshTokenRequest
 import com.adedom.teg.util.TegConstant
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -28,6 +29,8 @@ class DataSourceProvider(private val sessionManagerService: SessionManagerServic
             connectTimeout(60, TimeUnit.SECONDS)
             writeTimeout(60, TimeUnit.SECONDS)
             readTimeout(60, TimeUnit.SECONDS)
+
+            addNetworkInterceptor(StethoInterceptor())
         }.build()
 
         val retrofit = Retrofit.Builder().apply {
@@ -61,6 +64,8 @@ class DataSourceProvider(private val sessionManagerService: SessionManagerServic
 
                 response
             }
+
+            addNetworkInterceptor(StethoInterceptor())
         }.build()
 
         val retrofit = Retrofit.Builder().apply {
