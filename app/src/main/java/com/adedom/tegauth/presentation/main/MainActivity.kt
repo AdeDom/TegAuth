@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.adedom.library.presentation.main.MainViewModel
+import com.adedom.teg.util.TegConstant
 import com.adedom.tegauth.R
 import com.adedom.tegauth.base.BaseActivity
 import com.adedom.tegauth.presentation.splashscreen.SplashScreenActivity
@@ -39,6 +40,16 @@ class MainActivity : BaseActivity() {
                 startActivity(this)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.callPlayerState(TegConstant.STATE_ONLINE)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.callPlayerState(TegConstant.STATE_OFFLINE)
     }
 
 }

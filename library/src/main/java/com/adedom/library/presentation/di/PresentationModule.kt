@@ -11,7 +11,7 @@ private val presentationModule = module {
 
     viewModel { SignInViewModel(get()) }
     viewModel { SplashScreenViewModel(get()) }
-    viewModel { MainViewModel(get()) }
+    viewModel { MainViewModel(get(), get()) }
     viewModel { SignUpViewModel(get()) }
 
 }
