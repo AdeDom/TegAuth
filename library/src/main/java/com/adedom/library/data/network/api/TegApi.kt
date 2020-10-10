@@ -28,10 +28,10 @@ interface TegApi {
     suspend fun callPlayerState(@Path("state") state: String): BaseResponse
 
     @PUT("api/account/change-password")
-    suspend fun callChangePassword(changePassword: ChangePasswordRequest): BaseResponse
+    suspend fun callChangePassword(@Body changePassword: ChangePasswordRequest): BaseResponse
 
     @PUT("api/account/change-profile")
-    suspend fun callChangeProfile(changeProfile: ChangeProfileRequest): BaseResponse
+    suspend fun callChangeProfile(@Body changeProfile: ChangeProfileRequest): BaseResponse
 
     @GET("api/application/rank/rank")
     suspend fun callFetchRankPlayers(
