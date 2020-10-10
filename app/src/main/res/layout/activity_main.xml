@@ -33,10 +33,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Change profile"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btChangeImageProfile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btChangePassword" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btChangeImageProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change image profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btChangeProfile" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btSignOut"

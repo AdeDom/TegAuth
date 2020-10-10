@@ -19,7 +19,6 @@ interface TegApi {
     @GET("api/account/player-info")
     suspend fun callFetchPlayerInfo(): PlayerInfoResponse
 
-    // TODO: 09/10/2563 Key imageFile
     @Multipart
     @PUT("api/account/image-profile")
     suspend fun callChangeImageProfile(@Part imageFile: MultipartBody.Part): BaseResponse

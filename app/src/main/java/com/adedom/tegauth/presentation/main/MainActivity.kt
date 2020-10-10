@@ -7,6 +7,7 @@ import com.adedom.library.presentation.main.MainViewModel
 import com.adedom.teg.util.TegConstant
 import com.adedom.tegauth.R
 import com.adedom.tegauth.base.BaseActivity
+import com.adedom.tegauth.presentation.changeimage.ChangeImageActivity
 import com.adedom.tegauth.presentation.changepassword.ChangePasswordActivity
 import com.adedom.tegauth.presentation.changeprofile.ChangeProfileActivity
 import com.adedom.tegauth.presentation.splashscreen.SplashScreenActivity
@@ -51,6 +52,12 @@ class MainActivity : BaseActivity() {
 
         btChangeProfile.setOnClickListener {
             Intent(baseContext, ChangeProfileActivity::class.java).apply {
+                startActivity(this)
+            }
+        }
+
+        btChangeImageProfile.setOnClickListener {
+            Intent(baseContext, ChangeImageActivity::class.java).apply {
                 startActivity(this)
             }
         }

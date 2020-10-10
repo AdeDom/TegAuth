@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".presentation.changeimage.ChangeImageActivity" />
         <activity android:name=".presentation.changeprofile.ChangeProfileActivity" />
         <activity android:name=".presentation.changepassword.ChangePasswordActivity" />
         <activity android:name=".presentation.signup.SignUpActivity" />
