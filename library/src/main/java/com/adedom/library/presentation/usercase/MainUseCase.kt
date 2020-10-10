@@ -1,12 +1,11 @@
 package com.adedom.library.presentation.usercase
 
-import com.adedom.library.domain.Resource
-import com.adedom.teg.models.response.PlayerInfoResponse
+import com.adedom.teg.models.response.PlayerInfo
 
 interface MainUseCase {
 
-    suspend fun fetchPlayerInfo(): Resource<PlayerInfoResponse>
+    suspend fun fetchPlayerInfo(): PlayerInfo?
 
-    fun signOut()
+    suspend fun signOut()
 
 }

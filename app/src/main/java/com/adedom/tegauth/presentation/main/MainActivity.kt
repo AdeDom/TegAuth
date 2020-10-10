@@ -7,7 +7,6 @@ import com.adedom.library.presentation.main.MainViewModel
 import com.adedom.tegauth.R
 import com.adedom.tegauth.base.BaseActivity
 import com.adedom.tegauth.presentation.splashscreen.SplashScreenActivity
-import com.adedom.tegauth.util.extension.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -23,15 +22,15 @@ class MainActivity : BaseActivity() {
             progressBar.visibility = if (state.loading) View.VISIBLE else View.INVISIBLE
 
             if (state.playerInfo != null) {
-                toast(state.playerInfo?.name)
+                val text = "${state.playerInfo?.name} : ${state.playerInfo?.level}"
+
+                materialTextView.text = text
             }
         }
 
-        viewModel.attachFirstTime.observe {
-            viewModel.initialize()
-        }
-
         viewModel.error.observeError()
+
+        viewModel.fetchPlayerInfo()
 
         btSignOut.setOnClickListener {
             viewModel.signOut()

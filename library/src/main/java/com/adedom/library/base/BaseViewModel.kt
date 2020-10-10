@@ -11,7 +11,7 @@ abstract class BaseViewModel<S : Any>(private val initialState: S) : ViewModel()
 
     private val job = SupervisorJob()
     private val exceptionHandler = CoroutineExceptionHandler { _, err ->
-        setError(Resource.Error(err, false))
+        setError(Resource.Error(err))
     }
     private val _state = MutableLiveData<S>().apply { value = initialState }
     private val _error = MutableLiveData<Resource.Error>()
