@@ -3,8 +3,12 @@ package com.adedom.library.data.network.source
 import com.adedom.library.BuildConfig
 import com.adedom.library.data.network.api.TegApi
 import com.adedom.library.sharedpreference.service.SessionManagerService
+import com.adedom.teg.models.request.RefreshTokenRequest
 import com.adedom.teg.util.TegConstant
+import kotlinx.coroutines.runBlocking
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -47,11 +51,14 @@ class DataSourceProvider(private val sessionManagerService: SessionManagerServic
             readTimeout(60, TimeUnit.SECONDS)
 
             addInterceptor { chain ->
-                val request = chain.request()
-                    .newBuilder()
-                    .addHeader("Authorization", "Bearer ${sessionManagerService.accessToken}")
-                    .build()
-                chain.proceed(request)
+                var response: Response = addHeaderToProceedRequest(chain)
+
+                if (response.code == 401 || response.code == 403) {
+                    callRefreshToken()
+                    response = addHeaderToProceedRequest(chain)
+                }
+
+                response
             }
         }.build()
 
@@ -62,6 +69,24 @@ class DataSourceProvider(private val sessionManagerService: SessionManagerServic
         }.build()
 
         return retrofit.create(TegApi::class.java)
+    }
+
+    private fun callRefreshToken() {
+        val request = RefreshTokenRequest(sessionManagerService.refreshToken)
+        val response = runBlocking { getDataSource().callRefreshToken(request) }
+        if (response.success) {
+            sessionManagerService.accessToken = response.accessToken.orEmpty()
+            sessionManagerService.refreshToken = response.refreshToken.orEmpty()
+        }
+    }
+
+    private fun addHeaderToProceedRequest(chain: Interceptor.Chain): Response {
+        val request = chain.request()
+            .newBuilder()
+            .addHeader("Authorization", "Bearer ${sessionManagerService.accessToken}")
+            .build()
+
+        return chain.proceed(request)
     }
 
 }
