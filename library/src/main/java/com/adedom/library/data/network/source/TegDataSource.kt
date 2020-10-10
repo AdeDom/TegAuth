@@ -1,61 +1,45 @@
 package com.adedom.library.data.network.source
 
+import androidx.lifecycle.LiveData
+import com.adedom.library.data.db.entities.PlayerInfoEntity
 import com.adedom.teg.models.request.*
 import com.adedom.teg.models.response.*
 import okhttp3.MultipartBody
 
-class TegDataSource(private val provider: DataSourceProvider) {
+interface TegDataSource {
 
-    suspend fun callSignIn(signIn: SignInRequest): SignInResponse {
-        return provider.getDataSource().callSignIn(signIn)
-    }
+    suspend fun savePlayerInfo(playerInfo: PlayerInfoEntity)
 
-    suspend fun callSignUp(signUp: SignUpRequest): SignInResponse {
-        return provider.getDataSource().callSignUp(signUp)
-    }
+    suspend fun getDbPlayerInfo(): PlayerInfoEntity?
 
-    suspend fun callRefreshToken(refreshToken: RefreshTokenRequest): SignInResponse {
-        return provider.getDataSource().callRefreshToken(refreshToken)
-    }
+    fun getDbPlayerInfoLiveData(): LiveData<PlayerInfoEntity>
 
-    suspend fun callFetchPlayerInfo(): PlayerInfoResponse {
-        return provider.getTegDataSource().callFetchPlayerInfo()
-    }
+    suspend fun deletePlayerInfo()
 
-    suspend fun callChangeImageProfile(imageFile: MultipartBody.Part): BaseResponse {
-        return provider.getTegDataSource().callChangeImageProfile(imageFile)
-    }
+    suspend fun callSignIn(signIn: SignInRequest): SignInResponse
 
-    suspend fun callPlayerState(state: String): BaseResponse {
-        return provider.getTegDataSource().callPlayerState(state)
-    }
+    suspend fun callSignUp(signUp: SignUpRequest): SignInResponse
 
-    suspend fun callChangePassword(changePassword: ChangePasswordRequest): BaseResponse {
-        return provider.getTegDataSource().callChangePassword(changePassword)
-    }
+    suspend fun callRefreshToken(refreshToken: RefreshTokenRequest): SignInResponse
 
-    suspend fun callChangeProfile(changeProfile: ChangeProfileRequest): BaseResponse {
-        return provider.getTegDataSource().callChangeProfile(changeProfile)
-    }
+    suspend fun callFetchPlayerInfo(): PlayerInfoResponse
 
-    suspend fun callFetchRankPlayers(search: String, limit: Int): RankPlayersResponse {
-        return provider.getTegDataSource().callFetchRankPlayers(search, limit)
-    }
+    suspend fun callChangeImageProfile(imageFile: MultipartBody.Part): BaseResponse
 
-    suspend fun callLogActiveOn(): BaseResponse {
-        return provider.getTegDataSource().callLogActiveOn()
-    }
+    suspend fun callPlayerState(state: String): BaseResponse
 
-    suspend fun callLogActiveOff(): BaseResponse {
-        return provider.getTegDataSource().callLogActiveOff()
-    }
+    suspend fun callChangePassword(changePassword: ChangePasswordRequest): BaseResponse
 
-    suspend fun callFetchItemCollection(): BackpackResponse {
-        return provider.getTegDataSource().callFetchItemCollection()
-    }
+    suspend fun callChangeProfile(changeProfile: ChangeProfileRequest): BaseResponse
 
-    suspend fun callItemCollection(itemCollectionRequest: ItemCollectionRequest): BaseResponse {
-        return provider.getTegDataSource().callItemCollection(itemCollectionRequest)
-    }
+    suspend fun callFetchRankPlayers(search: String, limit: Int): RankPlayersResponse
+
+    suspend fun callLogActiveOn(): BaseResponse
+
+    suspend fun callLogActiveOff(): BaseResponse
+
+    suspend fun callFetchItemCollection(): BackpackResponse
+
+    suspend fun callItemCollection(itemCollectionRequest: ItemCollectionRequest): BaseResponse
 
 }

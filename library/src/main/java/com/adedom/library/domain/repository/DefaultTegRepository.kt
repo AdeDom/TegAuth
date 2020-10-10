@@ -1,11 +1,21 @@
 package com.adedom.library.domain.repository
 
+import androidx.lifecycle.LiveData
+import com.adedom.library.data.db.entities.PlayerInfoEntity
 import com.adedom.library.domain.Resource
 import com.adedom.teg.models.request.*
 import com.adedom.teg.models.response.*
 import okhttp3.MultipartBody
 
 interface DefaultTegRepository {
+
+    suspend fun savePlayerInfo(playerInfo: PlayerInfoEntity)
+
+    suspend fun getDbPlayerInfo(): PlayerInfoEntity?
+
+    fun getDbPlayerInfoLiveData(): LiveData<PlayerInfoEntity>
+
+    suspend fun deletePlayerInfo()
 
     suspend fun callSignIn(signIn: SignInRequest): Resource<SignInResponse>
 

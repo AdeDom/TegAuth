@@ -1,6 +1,8 @@
 package com.adedom.library.data.repository
 
+import androidx.lifecycle.LiveData
 import com.adedom.library.base.BaseRepository
+import com.adedom.library.data.db.entities.PlayerInfoEntity
 import com.adedom.library.data.network.source.TegDataSource
 import com.adedom.library.domain.Resource
 import com.adedom.library.domain.repository.DefaultTegRepository
@@ -11,6 +13,22 @@ import okhttp3.MultipartBody
 class DefaultTegAuthRepositoryImpl(
     private val dataSource: TegDataSource
 ) : BaseRepository(), DefaultTegRepository {
+
+    override suspend fun savePlayerInfo(playerInfo: PlayerInfoEntity) {
+        return dataSource.savePlayerInfo(playerInfo)
+    }
+
+    override suspend fun getDbPlayerInfo(): PlayerInfoEntity? {
+        return dataSource.getDbPlayerInfo()
+    }
+
+    override fun getDbPlayerInfoLiveData(): LiveData<PlayerInfoEntity> {
+        return dataSource.getDbPlayerInfoLiveData()
+    }
+
+    override suspend fun deletePlayerInfo() {
+        return dataSource.deletePlayerInfo()
+    }
 
     override suspend fun callSignIn(signIn: SignInRequest): Resource<SignInResponse> {
         return safeApiCall { dataSource.callSignIn(signIn) }
