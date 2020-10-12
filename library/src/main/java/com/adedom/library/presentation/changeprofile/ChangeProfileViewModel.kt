@@ -42,7 +42,7 @@ class ChangeProfileViewModel(
             val request = ChangeProfileRequest(
                 name = state.value?.name,
                 gender = state.value?.gender,
-                birthdate = state.value?.birthDate,
+                birthDate = state.value?.birthDate,
             )
 
             when (val resource = useCase.callChangeProfile(request)) {

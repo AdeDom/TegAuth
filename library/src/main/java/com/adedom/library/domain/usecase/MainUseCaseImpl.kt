@@ -25,7 +25,7 @@ class MainUseCaseImpl(
                     level = playerInfo?.level,
                     state = playerInfo?.state,
                     gender = playerInfo?.gender,
-                    birthDate = playerInfo?.birthdate,
+                    birthDate = playerInfo?.birthDate,
                 )
                 repository.savePlayerInfo(playerInfoEntity)
             }

@@ -40,7 +40,7 @@ class ChangeProfileUseCaseImpl(
                         level = result?.level,
                         state = result?.state,
                         gender = result?.gender,
-                        birthDate = result?.birthdate,
+                        birthDate = result?.birthDate,
                     )
 
                     repository.savePlayerInfo(playerInfoEntity)

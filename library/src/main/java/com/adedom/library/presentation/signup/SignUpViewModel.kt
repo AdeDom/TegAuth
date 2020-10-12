@@ -45,7 +45,7 @@ class SignUpViewModel(
                 password = state.value?.password,
                 name = state.value?.name,
                 gender = state.value?.gender,
-                birthdate = state.value?.birthDate,
+                birthDate = state.value?.birthDate,
             )
             when (val resource = useCase.callSignUp(request)) {
                 is Resource.Success -> _signUpEvent.value = resource.data

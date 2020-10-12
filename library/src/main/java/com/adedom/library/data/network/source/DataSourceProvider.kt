@@ -82,8 +82,10 @@ class DataSourceProvider(private val sessionManagerService: SessionManagerServic
             val request = RefreshTokenRequest(sessionManagerService.refreshToken)
             val response = runBlocking { getDataSource().callRefreshToken(request) }
             if (response.success) {
-                sessionManagerService.accessToken = response.accessToken.orEmpty()
-                sessionManagerService.refreshToken = response.refreshToken.orEmpty()
+                val accessToken = response.token?.accessToken.orEmpty()
+                val refreshToken = response.token?.refreshToken.orEmpty()
+                sessionManagerService.accessToken = accessToken
+                sessionManagerService.refreshToken = refreshToken
             }
         } catch (e: HttpException) {
             sessionManagerService.accessToken = ""

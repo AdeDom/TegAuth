@@ -19,8 +19,10 @@ class SignUpUseCaseImpl(
             is Resource.Success -> {
                 val response = resource.data
                 if (response.success) {
-                    sessionManagerService.accessToken = response.accessToken.orEmpty()
-                    sessionManagerService.refreshToken = response.refreshToken.orEmpty()
+                    val accessToken = response.token?.accessToken.orEmpty()
+                    val refreshToken = response.token?.refreshToken.orEmpty()
+                    sessionManagerService.accessToken = accessToken
+                    sessionManagerService.refreshToken = refreshToken
                 }
             }
         }
