@@ -22,6 +22,14 @@ class ChangeProfileActivity : BaseActivity() {
             progressBar.visibility = if (state.loading) View.VISIBLE else View.INVISIBLE
         }
 
+        viewModel.playerInfo.observe(this, { playerInfo ->
+            if (playerInfo == null) return@observe
+
+            etName.setText(playerInfo.name)
+            etGender.setText(playerInfo.gender)
+            etBirthDate.setText(playerInfo.birthDate)
+        })
+
         viewModel.changeProfileEvent.observe { response ->
             toast(response.message)
             if (response.success) finish()

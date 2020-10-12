@@ -17,7 +17,7 @@ private val presentationModule = module {
     viewModel { MainViewModel(get(), get()) }
     viewModel { SignUpViewModel(get()) }
     viewModel { ChangePasswordViewModel(get()) }
-    viewModel { ChangeProfileViewModel(get()) }
+    viewModel { ChangeProfileViewModel(get(), get()) }
     viewModel { ChangeImageViewModel(get(), get()) }
 
 }
