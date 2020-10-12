@@ -1,6 +1,8 @@
 package com.adedom.library.presentation.main
 
+import androidx.lifecycle.LiveData
 import com.adedom.library.base.BaseViewModel
+import com.adedom.library.data.db.entities.PlayerInfoEntity
 import com.adedom.library.domain.Resource
 import com.adedom.library.domain.repository.DefaultTegRepository
 import com.adedom.library.presentation.usercase.MainUseCase
@@ -11,11 +13,15 @@ class MainViewModel(
     private val repository: DefaultTegRepository,
 ) : BaseViewModel<MainState>(MainState()) {
 
+    val playerInfo: LiveData<PlayerInfoEntity>
+        get() = repository.getDbPlayerInfoLiveData()
+
     fun fetchPlayerInfo() {
         launch {
             setState { copy(loading = true) }
-            val playerInfo = useCase.fetchPlayerInfo()
-            setState { copy(loading = false, playerInfo = playerInfo) }
+            val callApi = useCase.fetchPlayerInfo()
+            if (!callApi) fetchPlayerInfo()
+            setState { copy(loading = false) }
         }
     }
 
@@ -29,7 +35,8 @@ class MainViewModel(
 
     fun signOut() {
         launch {
-            useCase.signOut()
+            val signOut = useCase.signOut()
+            if (!signOut) signOut()
         }
     }
 

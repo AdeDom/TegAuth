@@ -5,14 +5,13 @@ import com.adedom.library.domain.Resource
 import com.adedom.library.domain.repository.DefaultTegRepository
 import com.adedom.library.presentation.usercase.MainUseCase
 import com.adedom.library.sharedpreference.service.SessionManagerService
-import com.adedom.teg.models.response.PlayerInfo
 
 class MainUseCaseImpl(
     private val repository: DefaultTegRepository,
     private val sessionManagerService: SessionManagerService,
 ) : MainUseCase {
 
-    override suspend fun fetchPlayerInfo(): PlayerInfo? {
+    override suspend fun fetchPlayerInfo(): Boolean {
         if (repository.getDbPlayerInfo() == null) {
             val resource = repository.callFetchPlayerInfo()
 
@@ -31,26 +30,14 @@ class MainUseCaseImpl(
                 repository.savePlayerInfo(playerInfoEntity)
             }
         }
-
-        val db = repository.getDbPlayerInfo()
-        val playerInfo = PlayerInfo(
-            playerId = db?.playerId,
-            username = db?.username,
-            name = db?.name,
-            image = db?.image,
-            level = db?.level,
-            state = db?.state,
-            gender = db?.gender,
-            birthdate = db?.birthDate,
-        )
-
-        return playerInfo
+        return true
     }
 
-    override suspend fun signOut() {
+    override suspend fun signOut(): Boolean {
         sessionManagerService.accessToken = ""
         sessionManagerService.refreshToken = ""
         repository.deletePlayerInfo()
+        return true
     }
 
 }

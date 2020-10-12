@@ -24,13 +24,14 @@ class MainActivity : BaseActivity() {
 
         viewModel.state.observeForever { state ->
             progressBar.visibility = if (state.loading) View.VISIBLE else View.INVISIBLE
-
-            if (state.playerInfo != null) {
-                val text = "${state.playerInfo?.name} : ${state.playerInfo?.level}"
-
-                materialTextView.text = text
-            }
         }
+
+        viewModel.playerInfo.observe(this, { playerInfo ->
+            if (playerInfo == null) return@observe
+
+            val text = "${playerInfo.name} : ${playerInfo.level}"
+            materialTextView.text = text
+        })
 
         viewModel.error.observeError()
 
